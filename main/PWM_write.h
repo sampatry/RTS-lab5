@@ -9,6 +9,8 @@
 #include "freertos/queue.h" // For using freertos queues
 
 #define LEDC_FREQ_HZ 50 // DS3240 expects a PWM period of 20ms aka 50hz
+#define PWM_DUTY_RESOLUTION 32767  // 15-bit resolution (2^15 - 1)
+#define PWM_PERIOD_US 20000        // 20ms period for 50Hz
 
 extern const char *TAG_PWM_LEDC;
 

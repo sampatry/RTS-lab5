@@ -9,12 +9,14 @@
 #include "driver/i2c_slave.h"
 #include "PWM_write.h"
 
-#define I2C_SLAVE_PORT      0
+#define I2C_SLAVE_PORT       0
 #define I2C_SCL_IO           GPIO_NUM_22
 #define I2C_SDA_IO           GPIO_NUM_21
 #define I2C_FREQ_HZ          100000
 #define I2C_DEVICE_ADDR      0x68
 #define ESP_SLAVE_ADDR 0x0A
+
+#define PWM_OUTPUT_GPIO GPIO_NUM_21
 
 static const char *TAG = "I2C_SLAVE";
 
@@ -52,6 +54,8 @@ void setup(void)
         .slave_addr = ESP_SLAVE_ADDR,
         .sda_io_num = I2C_SDA_IO,
         .scl_io_num = I2C_SCL_IO,
+        .sda_pullup_en = GPIO_PULLUP_ENABLE,
+        .scl_pullup_en = GPIO_PULLUP_ENABLE,
         .maximum_speed = I2C_FREQ_HZ,
     };
 
@@ -77,7 +81,6 @@ void setup(void)
 void app_main(void)
 {
     setup();
-    adc_init();
     xTaskCreate(slave_task, "slave-revice-task", 1024, NULL, 1, NULL);
 
 }
