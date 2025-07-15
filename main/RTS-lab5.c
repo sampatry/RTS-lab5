@@ -61,7 +61,8 @@ void setup(void)
 void app_main(void)
 {
     setup();
-
+    adc_init();
+    xTaskCreate(adc_task, "ADC Task", 2048, NULL, 5, NULL);
     xTaskCreate(task1, "master-send-task", 1024, NULL, 1, NULL);
 
     // Cleanup if ever reached (usually app_main runs forever) --not true -> remove

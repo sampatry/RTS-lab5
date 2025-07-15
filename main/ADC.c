@@ -17,7 +17,4 @@ void adc_task(void *pvParameter) {
     }
 }
 
-void app_main(void) {
-    adc_init();
-    xTaskCreate(adc_task, "ADC Task", 2048, NULL, 5, NULL);
-}
+
