@@ -5,8 +5,8 @@
 #include <stdio.h>
 
 #define I2C_MASTER_PORT      0
-#define I2C_SCL_IO           22
-#define I2C_SDA_IO           21
+#define I2C_SCL_IO           GPIO_NUM_22
+#define I2C_SDA_IO           GPIO_NUM_21
 #define I2C_FREQ_HZ          100000
 #define I2C_DEVICE_ADDR      0x68
 
@@ -64,7 +64,7 @@ void app_main(void)
 
     xTaskCreate(task1, "master-send-task", 1024, NULL, 1, NULL);
 
-    // Cleanup if ever reached (usually app_main runs forever)
-    ESP_ERROR_CHECK(i2c_master_bus_rm_device(dev_handle));
-    ESP_ERROR_CHECK(i2c_del_master_bus(i2c_bus_handle));
+    // Cleanup if ever reached (usually app_main runs forever) --not true -> remove
+    //ESP_ERROR_CHECK(i2c_master_bus_rm_device(dev_handle));
+    //ESP_ERROR_CHECK(i2c_del_master_bus(i2c_bus_handle));
 }
