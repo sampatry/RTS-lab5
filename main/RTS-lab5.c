@@ -8,7 +8,7 @@
 
 
 void setup(){
-
+    printf("Initializing...");
 }
 
 
