@@ -1,0 +1,22 @@
+[1/5] cd /home/sam/esp/projects/lab5/20250715/RTS-lab5/build/esp-idf/esptool_py && /home/sam/.espressif/python_env/idf5.4_py3.12_env/bin/python /home/sam/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /home/sam/esp/projects/lab5/20250715/RTS-lab5/build/partition_table/partition-table.bin /home/sam/esp/projects/lab5/20250715/RTS-lab5/build/RTS-lab5.bin
+RTS-lab5.bin binary size 0x31490 bytes. Smallest app partition is 0x100000 bytes. 0xceb70 bytes (81%) free.
+[2/5] Performing build step for 'bootloader'
+[1/1] cd /home/sam/esp/projects/lab5/20250715/RTS-lab5/build/bootloader/esp-idf/esptool_py && /home/sam/.espressif/python_env/idf5.4_py3.12_env/bin/python /home/sam/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 /home/sam/esp/projects/lab5/20250715/RTS-lab5/build/bootloader/bootloader.bin
+Bootloader binary size 0x6570 bytes. 0xa90 bytes (9%) free.
+[3/5] No install step for 'bootloader'
+[4/5] Completed 'bootloader'
+[4/5] cd /home/sam/esp/esp-idf/components/esptool_py && /usr/bin/cmake -D IDF_PATH=/home/sam/esp/esp-idf -D "SERIAL_TOOL=/home/sam/.espressif/python_env/idf5.4_py3.12_env/bin/python;;/home/sam/esp/esp-idf/components/esptool_py/esptool/esptool.py;--chip;esp32" -D "SERIAL_TOOL_ARGS=--before=default_reset;--after=hard_reset;write_flash;@flash_args" -D WORKING_DIRECTORY=/home/sam/esp/projects/lab5/20250715/RTS-lab5/build -P /home/sam/esp/esp-idf/components/esptool_py/run_serial_tool.cmake
+esptool.py --chip esp32 -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 40m --flash_size 2MB 0x1000 bootloader/bootloader.bin 0x10000 RTS-lab5.bin 0x8000 partition_table/partition-table.bin
+esptool.py v4.9.0
+Found 1 serial ports
+Serial port /dev/ttyUSB0
+/dev/ttyUSB0 failed to connect: Could not open /dev/ttyUSB0, the port is busy or doesn't exist.
+([Errno 13] could not open port /dev/ttyUSB0: [Errno 13] Permission denied: '/dev/ttyUSB0')
+
+Hint: Try to add user into dialout or uucp group.
+
+
+A fatal error occurred: Could not connect to an Espressif device on any of the 1 available serial ports.
+FAILED: CMakeFiles/flash /home/sam/esp/projects/lab5/20250715/RTS-lab5/build/CMakeFiles/flash 
+cd /home/sam/esp/esp-idf/components/esptool_py && /usr/bin/cmake -D IDF_PATH=/home/sam/esp/esp-idf -D "SERIAL_TOOL=/home/sam/.espressif/python_env/idf5.4_py3.12_env/bin/python;;/home/sam/esp/esp-idf/components/esptool_py/esptool/esptool.py;--chip;esp32" -D "SERIAL_TOOL_ARGS=--before=default_reset;--after=hard_reset;write_flash;@flash_args" -D WORKING_DIRECTORY=/home/sam/esp/projects/lab5/20250715/RTS-lab5/build -P /home/sam/esp/esp-idf/components/esptool_py/run_serial_tool.cmake
+ninja: build stopped: subcommand failed.
