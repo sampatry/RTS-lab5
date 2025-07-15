@@ -1,0 +1,2 @@
+source /home/sam/esp/projects/lab5/20250714/RTS-lab5/build/gdbinit/symbols
+source /home/sam/esp/projects/lab5/20250714/RTS-lab5/build/gdbinit/connect
