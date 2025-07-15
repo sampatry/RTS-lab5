@@ -22,4 +22,4 @@ set confirm off
 set confirm on
 
 # Load application symbols
-file /home/sam/esp/projects/lab5/20250714/RTS-lab5/build/bootloader/bootloader.elf
+file /home/sam/esp/projects/lab5/20250715/RTS-lab5/build/bootloader/bootloader.elf

@@ -1,4 +1,4 @@
-# Install script for directory: /home/sam/esp/projects/lab5/20250714/RTS-lab5/main
+# Install script for directory: /home/sam/esp/projects/lab5/20250715/RTS-lab5/main
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

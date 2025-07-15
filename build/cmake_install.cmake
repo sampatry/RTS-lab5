@@ -1,4 +1,4 @@
-# Install script for directory: /home/sam/esp/projects/lab5/20250714/RTS-lab5
+# Install script for directory: /home/sam/esp/projects/lab5/20250715/RTS-lab5
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,7 +39,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/sam/esp/projects/lab5/20250714/RTS-lab5/build/esp-idf/cmake_install.cmake")
+  include("/home/sam/esp/projects/lab5/20250715/RTS-lab5/build/esp-idf/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/sam/esp/projects/lab5/20250714/RTS-lab5/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/sam/esp/projects/lab5/20250715/RTS-lab5/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

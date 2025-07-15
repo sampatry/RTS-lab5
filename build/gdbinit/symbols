@@ -18,8 +18,8 @@ end
 
 # Load bootloader symbols
 set confirm off
-    add-symbol-file /home/sam/esp/projects/lab5/20250714/RTS-lab5/build/bootloader/bootloader.elf
+    add-symbol-file /home/sam/esp/projects/lab5/20250715/RTS-lab5/build/bootloader/bootloader.elf
 set confirm on
 
 # Load application symbols
-file /home/sam/esp/projects/lab5/20250714/RTS-lab5/build/RTS-lab5.elf
+file /home/sam/esp/projects/lab5/20250715/RTS-lab5/build/RTS-lab5.elf
