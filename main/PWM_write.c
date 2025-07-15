@@ -18,10 +18,10 @@ void PWM_output_update(TimerHandle_t xTimer) {
     }
     if (pwm_output_queue == NULL) return; // Return immediatly if the queue is empty
 
-    static int32_t pulse_width_out_us;
+    static int pulse_width_out_us;
     if (xQueueReceive(pwm_output_queue, &pulse_width_out_us, 0) == pdPASS){
         ESP_LOGI(TAG_PWM_LEDC, "PWM Pulse Width Output: %d us", pulse_width_out_us);
-        uint32_t duty = (pulse_width_out_us * PWM_DUTY_RESOLUTION) / PWM_PERIOD_US;
+        int duty = (pulse_width_out_us * PWM_DUTY_RESOLUTION) / PWM_PERIOD_US;
         ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, duty);
         ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0);
     }

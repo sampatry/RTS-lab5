@@ -1,7 +1,7 @@
 {
     "version":            "1.2",
     "project_name":       "RTS-lab5",
-    "project_version":    "7eac72c-dirty",
+    "project_version":    "15910f1-dirty",
     "project_path":       "/home/sam/esp/projects/lab5/20250715/RTS-lab5",
     "idf_path":           "/home/sam/esp/esp-idf",
     "build_dir":          "/home/sam/esp/projects/lab5/20250715/RTS-lab5/build",
