@@ -52,7 +52,7 @@ void i2c_slave_task(void *arg)
         }
     }
 }
-
+    
 void setup(void)
 {
     printf("Initializing I2C slave...\n");
