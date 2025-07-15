@@ -1,71 +1,83 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "driver/i2c_master.h"
 #include "esp_log.h"
 #include <stdio.h>
+#include "driver/gpio.h" // For use of hardware GPIO's
+#include "driver/ledc.h" // For generating pwm output signals
+#include "freertos/queue.h" // For using freertos queues
 
-#define I2C_MASTER_PORT      0
+#include "driver/i2c_slave.h"
+#include "PWM_write.h"
+
+#define I2C_SLAVE_PORT      0
 #define I2C_SCL_IO           GPIO_NUM_22
 #define I2C_SDA_IO           GPIO_NUM_21
 #define I2C_FREQ_HZ          100000
 #define I2C_DEVICE_ADDR      0x68
-
 #define ESP_SLAVE_ADDR 0x0A
 
-static const char *TAG = "I2C_MASTER";
+static const char *TAG = "I2C_SLAVE";
 
-// Global handles so both setup() and app_main() can use them
-static i2c_master_bus_handle_t i2c_bus_handle;
-static i2c_device_config_t device_config;
-static i2c_master_dev_handle_t dev_handle;
+QueueHandle_t pwmOutputQueue; // Queue for passing pwm signal from pid to pwm output
 
-void task1(void *arg) {
+int32_t pulse_width_out_us = 0;
+int PWM_output_period_ms = 10;
+static TimerHandle_t pwmOutTimer;
 
-    ESP_ERROR_CHECK(i2c_master_bus_add_device(i2c_bus_handle, &device_config, &dev_handle));
-    
+i2c_slave_read_buffer(I2C_SLAVE_PORT, data, size, timeout);
+i2c_slave_write_buffer(I2C_SLAVE_PORT, response, size, timeout);
+
+
+void slave_task(void *arg) {
+    uint8_t buffer[128];
     while (1) {
-        // Write register address to read from
-        uint8_t reg_addr = ESP_SLAVE_ADDR;
-        ESP_ERROR_CHECK(i2c_master_transmit(dev_handle, &reg_addr, 1, pdMS_TO_TICKS(1000)));
-
-        // Read 1 byte from the device
-        uint8_t data;
-        ESP_ERROR_CHECK(i2c_master_receive(dev_handle, &data, 1, pdMS_TO_TICKS(1000)));
-
-        ESP_LOGI(TAG, "Received byte: 0x%02x", data);
-
-        vTaskDelay(pdMS_TO_TICKS(2000));  // wait 2 seconds before reading again
+        int size = i2c_slave_read_buffer(I2C_SLAVE_PORT, buffer, sizeof(buffer), pdMS_TO_TICKS(1000));
+        if (size > 0) {
+            ESP_LOGI(TAG, "Received %d bytes: 0x%02x", size, buffer[0]);
+            // Optionally write back a response
+            uint8_t reply = 0x55;
+            i2c_slave_write_buffer(I2C_SLAVE_PORT, &reply, 1, pdMS_TO_TICKS(100));
+        }
     }
 }
+
 
 
 void setup(void)
 {
     printf("Initializing I2C master...\n");
 
-    i2c_master_bus_config_t bus_config = {
-        .clk_source = I2C_CLK_SRC_DEFAULT,
-        .i2c_port = I2C_MASTER_PORT,
-        .scl_io_num = I2C_SCL_IO,
+    i2c_slave_config_t slave_config = {
+        .addr_10bit_en = 0,
+        .slave_addr = ESP_SLAVE_ADDR,
         .sda_io_num = I2C_SDA_IO,
-        .glitch_ignore_cnt = 7
+        .scl_io_num = I2C_SCL_IO,
+        .maximum_speed = I2C_FREQ_HZ,
     };
 
-    ESP_ERROR_CHECK(i2c_new_master_bus(&bus_config, &i2c_bus_handle));
+
+    ESP_ERROR_CHECK(i2c_slave_driver_initialize(I2C_SLAVE_PORT, &slave_config));
 
     device_config.dev_addr_length = I2C_ADDR_BIT_LEN_7;
     device_config.device_address = I2C_DEVICE_ADDR;
     device_config.scl_speed_hz = I2C_FREQ_HZ;
+
+    //PWM initialize
+    pwmOutputQueue = xQueueCreate(5, sizeof(int32_t));// Create a queue for pwm output values
+    pwm_set_receive_queue(pwmOutputQueue); // Set queue to receive pwm value
+    PWM_output_config(PWM_OUTPUT_GPIO); // Setup PWM output
+
+    // Create periodic timer to output new PWM value to motor
+    pwmOutTimer = xTimerCreate("PWM OUTPUT", pdMS_TO_TICKS(PWM_output_period_ms), pdTRUE, NULL, PWM_output_update);
+    if (pwmOutTimer == NULL || xTimerStart(pwmOutTimer, 0) != pdPASS) {
+        ESP_LOGE(TAG_PWM_LEDC, "Failed to create/start PWM OUTPUT timer");
+    }
 }
 
 void app_main(void)
 {
     setup();
     adc_init();
-    xTaskCreate(adc_task, "ADC Task", 2048, NULL, 5, NULL);
-    xTaskCreate(task1, "master-send-task", 1024, NULL, 1, NULL);
+    xTaskCreate(slave_task, "slave-revice-task", 1024, NULL, 1, NULL);
 
-    // Cleanup if ever reached (usually app_main runs forever) --not true -> remove
-    //ESP_ERROR_CHECK(i2c_master_bus_rm_device(dev_handle));
-    //ESP_ERROR_CHECK(i2c_del_master_bus(i2c_bus_handle));
 }

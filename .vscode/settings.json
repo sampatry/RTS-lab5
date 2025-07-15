@@ -1,25 +1,3 @@
 {
-  "C_Cpp.default.compilerPath": "/home/sam/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp-elf-gcc-14.2.0",
-  "files.associations": {
-    "freertos.h": "c",
-    "stdio.h": "c"
-  },
-  "idf.port": "/dev/ttyUSB0",
-  "idf.espIdfPath": "/home/sam/esp/esp-idf",
-  "idf.toolsPath": "/home/sam/.espressif",
-  "idf.pythonInstallPath": "/usr/bin/python3",
-  "idf.flashType": "UART",
-  "idf.openOcdConfigs": [
-    "interface/ftdi/esp32_devkitj_v1.cfg",
-    "target/esp32.cfg"
-  ],
-  "idf.customExtraVars": {
-    "IDF_TARGET": "esp32"
-  },
-  "clangd.path": "/home/sam/.espressif/tools/esp-clang/esp-18.1.2_20240912/esp-clang/bin/clangd",
-  "clangd.arguments": [
-    "--background-index",
-    "--query-driver=/home/sam/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc",
-    "--compile-commands-dir=/home/sam/esp/projects/lab5/20250715/RTS-lab5/build"
-  ]
+    "C_Cpp.default.compilerPath": "/home/sam/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20241119/xtensa-esp-elf/bin/xtensa-esp-elf-gcc"
 }

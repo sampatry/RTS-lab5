@@ -4,19 +4,19 @@
 cmake_minimum_required(VERSION 3.5)
 
 file(MAKE_DIRECTORY
-  "/home/dylan/esp/esp-idf/components/bootloader/subproject"
-  "/home/dylan/esp/esp_proj/Lab5/2025_07_15/RTS-lab5/build/bootloader"
-  "/home/dylan/esp/esp_proj/Lab5/2025_07_15/RTS-lab5/build/bootloader-prefix"
-  "/home/dylan/esp/esp_proj/Lab5/2025_07_15/RTS-lab5/build/bootloader-prefix/tmp"
-  "/home/dylan/esp/esp_proj/Lab5/2025_07_15/RTS-lab5/build/bootloader-prefix/src/bootloader-stamp"
-  "/home/dylan/esp/esp_proj/Lab5/2025_07_15/RTS-lab5/build/bootloader-prefix/src"
-  "/home/dylan/esp/esp_proj/Lab5/2025_07_15/RTS-lab5/build/bootloader-prefix/src/bootloader-stamp"
+  "/home/sam/esp/esp-idf/components/bootloader/subproject"
+  "/home/sam/esp/projects/lab5/20250715/RTS-lab5/build/bootloader"
+  "/home/sam/esp/projects/lab5/20250715/RTS-lab5/build/bootloader-prefix"
+  "/home/sam/esp/projects/lab5/20250715/RTS-lab5/build/bootloader-prefix/tmp"
+  "/home/sam/esp/projects/lab5/20250715/RTS-lab5/build/bootloader-prefix/src/bootloader-stamp"
+  "/home/sam/esp/projects/lab5/20250715/RTS-lab5/build/bootloader-prefix/src"
+  "/home/sam/esp/projects/lab5/20250715/RTS-lab5/build/bootloader-prefix/src/bootloader-stamp"
 )
 
 set(configSubDirs )
 foreach(subDir IN LISTS configSubDirs)
-    file(MAKE_DIRECTORY "/home/dylan/esp/esp_proj/Lab5/2025_07_15/RTS-lab5/build/bootloader-prefix/src/bootloader-stamp/${subDir}")
+    file(MAKE_DIRECTORY "/home/sam/esp/projects/lab5/20250715/RTS-lab5/build/bootloader-prefix/src/bootloader-stamp/${subDir}")
 endforeach()
 if(cfgdir)
-  file(MAKE_DIRECTORY "/home/dylan/esp/esp_proj/Lab5/2025_07_15/RTS-lab5/build/bootloader-prefix/src/bootloader-stamp${cfgdir}") # cfgdir has leading slash
+  file(MAKE_DIRECTORY "/home/sam/esp/projects/lab5/20250715/RTS-lab5/build/bootloader-prefix/src/bootloader-stamp${cfgdir}") # cfgdir has leading slash
 endif()
